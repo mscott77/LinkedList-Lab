@@ -8,17 +8,41 @@ using namespace std;
 
 template<typename T>
 class LinkedList : public LinkedListInterface<T>{
+private:
+	struct Node {
+		T data; // the data to store in this node 
+		Node* next; // a pointer of type Node that points to the next node
+		// constructor 
+		// 	-takes a derefenced pointer for the first value, and pointer of type Node for the next value.
+		//	-if no next_val is specified, it automatically sets that pointer to NULL
+		Node(const T& the_data, Node* next_val = NULL){
+			next = next_val;
+			data = the_data;
+		}
+	};
+	Node* head; // create the head pointer, which will point to NULL on creation, and eventually will point to the head of the list
+	int numItems; // a counter to keep track of the number of items in the list
 public:
 
 	// constructor
 	LinkedList() {
 		cout << endl << "In constructor" << endl;
 
+		head = NULL; // since there are no Nodes created yet for head to point to, set it to NULL so that we know the list is empty
+		numItems = 0; // initialize the number of items in our list to be 0
+
 		cout << "Leaving constructor" << endl;
 	}
 	// destructor
 	~LinkedList() {
 		cout << endl <<  "In destructor" << endl;
+
+		// clear the entire list
+		while(head != NULL){ // keep going until the head is pointing at NULL ie. until there are no items left in the list
+			Node *current = head; // make a pointer named current that points to the same thing head points to
+			head = head->next; // make head point to head's next value, which will be the next value in the list, or NULL if head is the last value in the list
+			delete current; // delete the item that current is pointing to
+		}
 
 		cout << "Leaving destructor" << endl;
 	}
@@ -85,6 +109,13 @@ public:
 	void clear(){
 		cout << endl <<  "In clear()" << endl;
 
+		// clear the entire list
+		while(head != NULL){ // keep going until the head is pointing at NULL ie. until there are no items left in the list
+			Node *current = head; // make a pointer named current that points to the same thing head points to
+			head = head->next; // make head point to head's next value, which will be the next value in the list, or NULL if head is the last value in the list
+			delete current; // delete the item that current is pointing to
+		}
+
 		cout << "Leaving clear()" << endl;
 	}
 
@@ -98,10 +129,8 @@ public:
 	*/
 	T at(int index){
 		cout << endl <<  "In at()" << endl;
-
-		return 777;
-
 		cout << "Leaving at()" << endl;
+		return 666;
 	}
 
 	/*
@@ -111,10 +140,8 @@ public:
 	*/
 	int size(){
 		cout << endl <<  "In size()" << endl;
-
-		return 777;
-
 		cout << "Leaving size()" << endl;
+		return numItems;
 	}
 
 	/*
@@ -128,10 +155,8 @@ public:
 	*/
 	string toString(){
 		cout << endl <<  "In toString()" << endl;
-
-		return "XXXX";
-
 		cout << "Leaving toString()" << endl ;
+		return "XXXX";
 	}
 
 };

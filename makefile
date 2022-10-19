@@ -1,2 +1,2 @@
-test : test.cpp
-	g++ -o test test.cpp
+test : test.cpp LinkedList.h
+	g++ -o test test.cpp 
