@@ -24,7 +24,7 @@ private:
 	int numItems; // a counter to keep track of the number of items in the list
 public:
 
-	// constructor
+	//--------------------------------------constructor-----------------------------------------------------
 	LinkedList() {
 		cout << endl << "In constructor" << endl;
 
@@ -33,7 +33,7 @@ public:
 
 		cout << "Leaving constructor" << endl;
 	}
-	// destructor
+	//-----------------------------------------------------destructor-----------------------------------------------------
 	~LinkedList() {
 		cout << endl <<  "In destructor" << endl;
 
@@ -48,7 +48,7 @@ public:
 	}
 
 	/*
-	insertHead
+	-----------------------------------------------------insertHead-----------------------------------------------------
 
 	A node with the given value should be inserted at the beginning of the list.
 
@@ -57,11 +57,33 @@ public:
 	void insertHead(T value){
 		cout << endl <<  "In insertHead()" << endl;
 
+		// check to make sure it's not a duplicate
+		bool isDuplicate = false;
+		for(Node *ptr = head; ptr != NULL; ptr=ptr->next)
+		{
+			if ((ptr->data) == value)
+			{
+				isDuplicate = true;
+			}
+		}
+
+		// if it's a duplicate, don't insert it
+		if (isDuplicate == true) 
+		{
+			cout << "value given to insert was a duplicate and was NOT inserted" << endl;
+		}
+		else // if it's not a duplicate, insert it
+		{
+			Node *newNode = new Node(value);
+			newNode->next = head;
+			head = newNode;
+		}
+
 		cout << "Leaving insertHead()" << endl;
 	}
 
 	/*
-	insertTail
+	-----------------------------------------------------insertTail-----------------------------------------------------
 
 	A node with the given value should be inserted at the end of the list.
 
@@ -74,7 +96,7 @@ public:
 	}
 
 	/*
-	insertAfter
+	-----------------------------------------------------insertAfter-----------------------------------------------------
 
 	A node with the given value should be inserted immediately after the
 	node whose value is equal to insertionNode.
@@ -89,7 +111,7 @@ public:
 	}
 
 	/*
-	remove
+	-----------------------------------------------------remove-----------------------------------------------------
 
 	The node with the given value should be removed from the list.
 
@@ -102,7 +124,7 @@ public:
 	}
 
 	/*
-	clear
+	-----------------------------------------------------clear-----------------------------------------------------
 
 	Remove all nodes from the list.
 	*/
@@ -120,7 +142,7 @@ public:
 	}
 
 	/*
-	at
+	-----------------------------------------------------at-----------------------------------------------------
 
 	Returns the value of the node at the given index. The list begins at
 	index 0.
@@ -134,7 +156,7 @@ public:
 	}
 
 	/*
-	size
+	-----------------------------------------------------size-----------------------------------------------------
 
 	Returns the number of nodes in the list.
 	*/
@@ -145,7 +167,7 @@ public:
 	}
 
 	/*
-	toString
+	-----------------------------------------------------toString-----------------------------------------------------
 	
 	Returns a string representation of the list, with the value of each node listed in order (Starting from the head) and separated by a single space
 	There should be no trailing space at the end of the string
@@ -155,8 +177,18 @@ public:
 	*/
 	string toString(){
 		cout << endl <<  "In toString()" << endl;
+
+		// initialize a stringream
+		stringstream ss;
+		// loop through the LinkedList 
+		for(Node *ptr = head; ptr != NULL; ptr=ptr->next)
+		{
+				ss << to_string(ptr->data); // add current value to stringstream (don't forget to convert it to a string)
+				if ((ptr->next) != NULL){ ss << " ";} // don't add a space on the last item
+		}
+
 		cout << "Leaving toString()" << endl ;
-		return "XXXX";
+		return ss.str();
 	}
 
 };

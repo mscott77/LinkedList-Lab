@@ -9,6 +9,14 @@ int main() {
 
 	LinkedList<int> mylist;
 
+	mylist.insertHead(1);
+	mylist.insertHead(2);
+	mylist.insertHead(3);
+	mylist.insertHead(666);
+	cout << endl << "Current List" << endl << mylist.toString() << endl << endl;
+
+
+	/*
 	mylist.toString();
 
 	mylist.insertHead(5);
@@ -33,6 +41,7 @@ int main() {
 
 	mylist.clear();
 	mylist.toString();
+	*/
 
 }
 
