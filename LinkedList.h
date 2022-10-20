@@ -110,16 +110,10 @@ public:
 		}
 		else{
 			// if it's not a duplicate, add it to the list
-			for(Node *ptr = head; ptr != NULL; ptr=ptr->next)
-			{
-				if ((ptr->next) == NULL){ // if it's the last itme in the list
-					Node *newNode = new Node(value);
-					ptr->next = newNode;
-					break; // break so it only does this one time and doesn't make an infinite loop
-					// newNode's value should be automatically set to NULL in the Node constructor
-				}
-
-			}
+			Node *newNode = new Node(value);
+			tail->next = newNode;
+			tail = newNode;
+			
 			numItems ++;
 		}
 
