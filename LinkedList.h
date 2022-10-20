@@ -20,7 +20,8 @@ private:
 			data = the_data;
 		}
 	};
-	Node* head; // create the head pointer, which will point to NULL on creation, and eventually will point to the head of the list
+	Node *head; // create the head pointer, which will point to NULL on creation, and eventually will point to the head of the list
+	Node *tail; // keeps track of the last value
 	int numItems; // a counter to keep track of the number of items in the list
 public:
 
@@ -29,6 +30,7 @@ public:
 		cout << endl << "In constructor" << endl;
 
 		head = NULL; // since there are no Nodes created yet for head to point to, set it to NULL so that we know the list is empty
+		tail = NULL;
 		numItems = 0; // initialize the number of items in our list to be 0
 
 		cout << "Leaving constructor" << endl;
@@ -77,6 +79,8 @@ public:
 			Node *newNode = new Node(value);
 			newNode->next = head;
 			head = newNode;
+
+			numItems ++;
 		}
 
 		cout << "Leaving insertHead()" << endl;
@@ -137,6 +141,7 @@ public:
 			head = head->next; // make head point to head's next value, which will be the next value in the list, or NULL if head is the last value in the list
 			delete current; // delete the item that current is pointing to
 		}
+		numItems = 0;
 
 		cout << "Leaving clear()" << endl;
 	}
@@ -151,8 +156,25 @@ public:
 	*/
 	T at(int index){
 		cout << endl <<  "In at()" << endl;
+
+		// confirm whether the given index is in range or not
+		if((index < 0) || (index >= numItems))
+		{
+			throw out_of_range("ERROR index was not in range of the current list");
+		}
+
+		// after confirming index is valid, iterate through the list till you get to that index
+		int currentIndex = 0;
+		for(Node *ptr = head; ptr != NULL; ptr=ptr->next)
+		{
+			if (currentIndex == index)
+			{
+				return ptr->data;
+			}
+			currentIndex ++;
+		}
+
 		cout << "Leaving at()" << endl;
-		return 666;
 	}
 
 	/*
