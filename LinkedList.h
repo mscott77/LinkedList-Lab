@@ -21,7 +21,7 @@ private:
 		}
 	};
 	Node *head; // create the head pointer, which will point to NULL on creation, and eventually will point to the head of the list
-	Node *tail; // keeps track of the last value
+	//Node *tail; // keeps track of the last value
 	int numItems; // a counter to keep track of the number of items in the list
 public:
 
@@ -30,7 +30,7 @@ public:
 		cout << endl << "In constructor" << endl;
 
 		head = NULL; // since there are no Nodes created yet for head to point to, set it to NULL so that we know the list is empty
-		tail = NULL;
+		//tail = NULL;
 		numItems = 0; // initialize the number of items in our list to be 0
 
 		cout << "Leaving constructor" << endl;
@@ -93,8 +93,36 @@ public:
 
 	Do not allow duplicate values in the list.
 	*/
-	void insertTail(T value){
+	void insertTail(T value){							//FIXME: calling this function results in an infinite loooooooooooooooooooooop...
 		cout << endl <<  "In insertTail()" << endl;
+
+		// check to see if it's a duplicate
+		bool isDuplicate = false;
+		for(Node *ptr = head; ptr != NULL; ptr=ptr->next)
+		{
+			if ((ptr->data) == value)
+			{
+				isDuplicate = true;
+			}
+		}
+		if (isDuplicate) { 
+			cout << "value given to insert was a duplicate and was NOT inserted" << endl;
+		}
+		else{
+			// if it's not a duplicate, add it to the list
+			for(Node *ptr = head; ptr != NULL; ptr=ptr->next)
+			{
+				if ((ptr->next) == NULL){ // if it's the last itme in the list
+					Node *newNode = new Node(value);
+					ptr->next = newNode;
+					break; // break so it only does this one time and doesn't make an infinite loop
+					// newNode's value should be automatically set to NULL in the Node constructor
+				}
+
+			}
+			numItems ++;
+		}
+
 
 		cout << "Leaving insertTail()" << endl;
 	}
