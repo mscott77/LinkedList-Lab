@@ -21,7 +21,6 @@ private:
 		}
 	};
 	Node *head; // create the head pointer, which will point to NULL on creation, and eventually will point to the head of the list
-	//Node *tail; // keeps track of the last value
 	int numItems; // a counter to keep track of the number of items in the list
 public:
 
@@ -30,7 +29,6 @@ public:
 		cout << endl << "In constructor" << endl;
 
 		head = NULL; // since there are no Nodes created yet for head to point to, set it to NULL so that we know the list is empty
-		//tail = NULL;
 		numItems = 0; // initialize the number of items in our list to be 0
 
 		cout << "Leaving constructor" << endl;
