@@ -55,6 +55,19 @@ int main() {
 	mylist.insertTail(8);
 	mylist.insertTail(8);
 	cout << endl << "Current List" << endl << mylist.toString() << endl << endl;
+
+	// test the remove() function
+	cout << "removing the number 6 from the list" << endl;
+	mylist.remove(6);
+	cout << endl << "Current List" << endl << mylist.toString() << endl << endl;
+	cout << "size of list is: " << mylist.size() << endl;
+
+	// test the remove() function if the given value is not in the list
+
+	cout << "removing the number 666 from the list" << endl;
+	mylist.remove(666);
+	cout << endl << "Current List" << endl << mylist.toString() << endl << endl;
+	cout << "size of list is: " << mylist.size() << endl;
 	
 
 }

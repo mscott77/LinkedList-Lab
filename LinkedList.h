@@ -110,7 +110,7 @@ public:
 			// if it's not a duplicate, add it to the list
 			for(Node *ptr = head; ptr != NULL; ptr=ptr->next)
 			{
-				if ((ptr->next) == NULL){ // if it's the last itme in the list
+				if ((ptr->next) == NULL){ // if it's the last item in the list
 					Node *newNode = new Node(value);
 					ptr->next = newNode;
 					break; // break so it only does this one time and doesn't make an infinite loop
@@ -142,6 +142,7 @@ public:
 
 	/*
 	-----------------------------------------------------remove-----------------------------------------------------
+	FIXME: I'm getting a segmentation fault
 
 	The node with the given value should be removed from the list.
 
@@ -150,6 +151,26 @@ public:
 	void remove(T value){
 		cout << endl <<  "In remove()" << endl;
 
+		int i = 0;
+		for(Node *ptr = head; ptr != NULL; ptr=ptr->next)
+		{	
+			cout << "on loop #" << i << endl;
+			if ((ptr->next) != NULL)
+			{
+				if ((ptr->next->data) == value) // if the NEXT value is the one you want to remove
+				{
+					cout << "found a match at index " << i + 1 << endl;
+					Node *temp = ptr->next; // make a temporary placeholder on the one you want to delete so you don't lose it 
+					ptr->next = ptr->next->next; // assign the current nodes 'next' to point to the node AFTER the one you want to delete
+					delete temp; // now delete the one you want to delete
+					cout << "Node has been deleted" << endl;
+					numItems --; // decrement the number of items counter 
+					break; // break, so that you don't get a segmentation fault later, also because there will be no duplicate numbers in the list anyways
+				}
+			}
+			i++;
+		}
+		cout << " NO MATCH was found, NO list items were deleted" << endl;
 		cout << "Leaving remove()" << endl;
 	}
 
@@ -199,8 +220,6 @@ public:
 			}
 			currentIndex ++;
 		}
-
-		cout << "Leaving at()" << endl;
 	}
 
 	/*
