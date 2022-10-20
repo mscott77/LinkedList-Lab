@@ -48,7 +48,7 @@ public:
 	}
 
 	/*
-	-----------------------------------------------------insertHead-----------------------------------------------------
+	-----------------------------------------------------insertHead-----------------------------------------------------(done)
 
 	A node with the given value should be inserted at the beginning of the list.
 
@@ -85,13 +85,13 @@ public:
 	}
 
 	/*
-	-----------------------------------------------------insertTail-----------------------------------------------------
+	-----------------------------------------------------insertTail-----------------------------------------------------(done)
 
 	A node with the given value should be inserted at the end of the list.
 
 	Do not allow duplicate values in the list.
 	*/
-	void insertTail(T value){							//FIXME: calling this function results in an infinite loooooooooooooooooooooop...
+	void insertTail(T value){							
 		cout << endl <<  "In insertTail()" << endl;
 
 		// check to see if it's a duplicate
@@ -108,17 +108,25 @@ public:
 		}
 		else{
 			// if it's not a duplicate, add it to the list
-			for(Node *ptr = head; ptr != NULL; ptr=ptr->next)
+			// this function has problems if there's not already an item in the list,
+			// so if the list is empty and insertTail() is called, just call insertHead() instead
+			if(numItems == 0)
 			{
-				if ((ptr->next) == NULL){ // if it's the last item in the list
-					Node *newNode = new Node(value);
-					ptr->next = newNode;
-					break; // break so it only does this one time and doesn't make an infinite loop
-					// newNode's value should be automatically set to NULL in the Node constructor
-				}
-
+				insertHead(value);	
 			}
-			numItems ++;
+			else{
+				for(Node *ptr = head; ptr != NULL; ptr=ptr->next)
+				{
+					if ((ptr->next) == NULL){ // if it's the last item in the list
+						Node *newNode = new Node(value);
+						ptr->next = newNode;
+						break; // break so it only does this one time and doesn't make an infinite loop
+						// newNode's value should be automatically set to NULL in the Node constructor
+					}
+
+				}
+				numItems ++;
+			}
 		}
 
 
@@ -141,15 +149,15 @@ public:
 	}
 
 	/*
-	-----------------------------------------------------remove-----------------------------------------------------
-	FIXME: I'm getting a segmentation fault
-
+	-----------------------------------------------------remove-----------------------------------------------------(done)
 	The node with the given value should be removed from the list.
 
 	The list may or may not include a node with the given value.
 	*/
 	void remove(T value){
 		cout << endl <<  "In remove()" << endl;
+
+		bool wasFound = false;
 
 		int i = 0;
 		for(Node *ptr = head; ptr != NULL; ptr=ptr->next)
@@ -163,20 +171,23 @@ public:
 					Node *temp = ptr->next; // make a temporary placeholder on the one you want to delete so you don't lose it 
 					ptr->next = ptr->next->next; // assign the current nodes 'next' to point to the node AFTER the one you want to delete
 					delete temp; // now delete the one you want to delete
+
 					cout << "Node has been deleted" << endl;
 					numItems --; // decrement the number of items counter 
+					wasFound = true;
 					break; // break, so that you don't get a segmentation fault later, also because there will be no duplicate numbers in the list anyways
 				}
 			}
 			i++;
 		}
-		cout << " NO MATCH was found, NO list items were deleted" << endl;
+		if (!wasFound){
+			cout << " NO MATCH was found, NO list items were deleted" << endl;
+		}
 		cout << "Leaving remove()" << endl;
 	}
 
 	/*
-	-----------------------------------------------------clear-----------------------------------------------------
-
+	-----------------------------------------------------clear-----------------------------------------------------(done)
 	Remove all nodes from the list.
 	*/
 	void clear(){
@@ -194,7 +205,7 @@ public:
 	}
 
 	/*
-	-----------------------------------------------------at-----------------------------------------------------
+	-----------------------------------------------------at-----------------------------------------------------(done)
 
 	Returns the value of the node at the given index. The list begins at
 	index 0.
@@ -223,7 +234,7 @@ public:
 	}
 
 	/*
-	-----------------------------------------------------size-----------------------------------------------------
+	-----------------------------------------------------size-----------------------------------------------------(done)
 
 	Returns the number of nodes in the list.
 	*/
@@ -234,7 +245,7 @@ public:
 	}
 
 	/*
-	-----------------------------------------------------toString-----------------------------------------------------
+	-----------------------------------------------------toString-----------------------------------------------------(done)
 	
 	Returns a string representation of the list, with the value of each node listed in order (Starting from the head) and separated by a single space
 	There should be no trailing space at the end of the string
@@ -243,8 +254,6 @@ public:
 	"1 2 3 4 5"
 	*/
 	string toString(){
-		cout << endl <<  "In toString()" << endl;
-
 		// initialize a stringream
 		stringstream ss;
 		// loop through the LinkedList 
@@ -253,9 +262,10 @@ public:
 				ss << to_string(ptr->data); // add current value to stringstream (don't forget to convert it to a string)
 				if ((ptr->next) != NULL){ ss << " ";} // don't add a space on the last item
 		}
-
-		cout << "Leaving toString()" << endl ;
 		return ss.str();
 	}
+
+
+
 
 };
