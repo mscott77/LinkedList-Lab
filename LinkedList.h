@@ -159,26 +159,40 @@ public:
 
 		bool wasFound = false;
 
-		int i = 0;
-		for(Node *ptr = head; ptr != NULL; ptr=ptr->next)
-		{	
-			cout << "on loop #" << i << endl;
-			if ((ptr->next) != NULL)
-			{
-				if ((ptr->next->data) == value) // if the NEXT value is the one you want to remove
-				{
-					cout << "found a match at index " << i + 1 << endl;
-					Node *temp = ptr->next; // make a temporary placeholder on the one you want to delete so you don't lose it 
-					ptr->next = ptr->next->next; // assign the current nodes 'next' to point to the node AFTER the one you want to delete
-					delete temp; // now delete the one you want to delete
+		// first check for the case where the item in question happens to be the first item in the list
+		if ((head->data) == value)
+		{
+			Node *oldNode = head;
+			head = head->next;
+			delete oldNode;
+			cout << "Node has been deleted. Deleted Item was the first item in the list" << endl;
 
-					cout << "Node has been deleted" << endl;
-					numItems --; // decrement the number of items counter 
-					wasFound = true;
-					break; // break, so that you don't get a segmentation fault later, also because there will be no duplicate numbers in the list anyways
+			numItems --; // decrement the number of items counter 
+			wasFound = true;
+		}
+		else // if the first one is not a match, go through the rest of them 
+		{
+			int i = 0;
+			for(Node *ptr = head; ptr != NULL; ptr=ptr->next)
+			{	
+				cout << "on loop #" << i << endl;
+				if ((ptr->next) != NULL) // do this for every value except the last value, because the last value doesn't have a pt->next->data because its NULL
+				{
+					if ((ptr->next->data) == value) // if the NEXT value is the one you want to remove
+					{
+						cout << "found a match at index " << i + 1 << endl;
+						Node *temp = ptr->next; // make a temporary placeholder on the one you want to delete so you don't lose it 
+						ptr->next = ptr->next->next; // assign the current nodes 'next' to point to the node AFTER the one you want to delete
+						delete temp; // now delete the one you want to delete
+
+						cout << "Node has been deleted" << endl;
+						numItems --; // decrement the number of items counter 
+						wasFound = true;
+						break; // break, so that you don't get a segmentation fault later, also because there will be no duplicate numbers in the list anyways
+					}
 				}
+				i++;
 			}
-			i++;
 		}
 		if (!wasFound){
 			cout << " NO MATCH was found, NO list items were deleted" << endl;
