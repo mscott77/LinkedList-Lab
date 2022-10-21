@@ -105,6 +105,26 @@ int main() {
 
 	cout << "---------------------------test5--------------------------------------------" << endl;
 	
+	// test the insertAfter() function
+	cout << endl << "Current List" << endl << mylist.toString() << endl << endl;
+
+	cout << "we will now insert the value 666 after the value 5..." << endl;
+	mylist.insertAfter(666,5);
+	cout << endl << "Current List" << endl << mylist.toString() << endl << endl;
+
+	cout << "we will now insert the value 666 after the value 666... but we will fail because it is a duplicate" << endl;
+	mylist.insertAfter(666,666);
+	cout << endl << "Current List" << endl << mylist.toString() << endl << endl;
+
+	cout << "we will now insert the value 31415 after the value 662607... but will fail because 662607 is not in the list" << endl;
+	mylist.insertAfter(31415,662607);
+	cout << endl << "Current List" << endl << mylist.toString() << endl << endl;
+
+	cout << "double checking the size of the list for accuracy..." << endl;
+	cout << mylist.size() << endl;
+
+
+
 
 }
 

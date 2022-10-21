@@ -24,7 +24,7 @@ private:
 	int numItems; // a counter to keep track of the number of items in the list
 public:
 
-	//--------------------------------------constructor-----------------------------------------------------
+	//--------------------------------------constructor-----------------------------------------------------(done)
 	LinkedList() {
 		cout << endl << "In constructor" << endl;
 
@@ -33,7 +33,7 @@ public:
 
 		cout << "Leaving constructor" << endl;
 	}
-	//-----------------------------------------------------destructor-----------------------------------------------------
+	//-----------------------------------------------------destructor-----------------------------------------------------(done)
 	~LinkedList() {
 		cout << endl <<  "In destructor" << endl;
 
@@ -134,7 +134,7 @@ public:
 	}
 
 	/*
-	-----------------------------------------------------insertAfter-----------------------------------------------------
+	-----------------------------------------------------insertAfter-----------------------------------------------------(done)
 
 	A node with the given value should be inserted immediately after the
 	node whose value is equal to insertionNode.
@@ -144,6 +144,37 @@ public:
 	*/
 	void insertAfter(T value, T insertionNode){
 		cout << endl <<  "In insertAfter()" << endl;
+
+		bool wasFound = false;
+		bool wasDuplicate = false;
+
+		// first, make sure the value to insert is not a duplicate, if it is, you can skip all the other looping
+		for(Node *ptr = head; ptr != NULL; ptr=ptr->next) // loop through the entire list
+		{
+			if (ptr->data == value){
+				wasDuplicate = true;
+				cout << "the item you gave to insert was a duplicate item. nothing was added to the list" << endl;
+			}
+		}
+
+		if (!wasDuplicate){
+			for(Node *ptr = head; ptr != NULL; ptr=ptr->next) // loop through the entire list
+			{
+				if ((ptr->data) == insertionNode) // insert once you have found a value matching insertionNode
+				{
+
+					Node *newNode = new Node(value,ptr->next); // create a new Node, assign it the given value, and make sure to assign it's next to be the same next as the Node you're putting it after
+					ptr->next = newNode;
+					numItems++;
+					wasFound = true;
+					cout << "the value " << value << " has been inserted after the value " << insertionNode << endl;
+					break;
+				}
+			}
+			if (!wasFound){ // the value to insert was not a duplicate, but the value to insert after was not found 
+				cout << "there was no item in the list matching the given value: " << insertionNode << ", so nothing was added to the list" << endl;
+			}
+		}
 
 		cout << "Leaving insertAfter()" << endl;
 	}
