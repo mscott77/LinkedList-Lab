@@ -43,3 +43,7 @@ clear
 size 0
 printList
   
+remove 1
+size 0
+printList
+  
