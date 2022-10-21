@@ -123,6 +123,12 @@ int main() {
 	cout << "double checking the size of the list for accuracy..." << endl;
 	cout << mylist.size() << endl;
 
+	cout << "---------------------------test5--------------------------------------------" << endl;
+	// test what happens if you try to print the list after clearing the list
+	mylist.clear();
+	cout << endl << "Current List" << endl << mylist.toString() << endl << endl;
+
+
 
 
 

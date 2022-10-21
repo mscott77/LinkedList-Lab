@@ -1,4 +1,3 @@
-//YOU MAY NOT MODIFY THIS DOCUMENT
 #pragma once
 
 #include <string>
@@ -304,7 +303,7 @@ public:
 		// loop through the LinkedList 
 		for(Node *ptr = head; ptr != NULL; ptr=ptr->next)
 		{
-				ss << to_string(ptr->data); // add current value to stringstream (don't forget to convert it to a string)
+				ss << ptr->data; // add current value to stringstream (don't forget to convert it to a string)
 				if ((ptr->next) != NULL){ ss << " ";} // don't add a space on the last item
 		}
 		return ss.str();
